@@ -27,9 +27,9 @@ def draw_nest_squares(ax,n,x,y,d):
         #Continously plots the x and y coordinates for each recursive call
         ax.plot(x[:]-d,y[:]-d, color='k')
         
-		#Four recursive calls to create squares that have half the length of their predecessor and their vertexes
+	#Four recursive calls to create squares that have half the length of their predecessor and their vertexes
         #For x coordinates: Each new square is half of the predecessor and is +- with d 
-		#For y coordinates: Each new square is hald of the predecessor and is +- with d
+	#For y coordinates: Each new square is hald of the predecessor and is +- with d
         draw_nest_squares(ax,n-1,x/2+d, y/2+d, d)   #Upper Right
         draw_nest_squares(ax,n-1,x/2+d, y/2-d, d)   #Lower Right
         draw_nest_squares(ax,n-1,x/2-d, y/2+d, d)   #Upper Left
@@ -98,7 +98,7 @@ def draw_trees(ax,n,x,y,d,h):
         ax.plot(x[:],y[:], color='k')
         
         #d: Increment value that shifts the x values with the value of the line length
-		#h: Height of the tree, shifts the y coordinates consistently
+	#h: Height of the tree, shifts the y coordinates consistently
         #Two recursive calls that plots on opposite sides of the x axis with each x coordinate being half of their predecessor
         draw_trees(ax,n-1, (x/2)-d, y-(h),d, h)
         draw_trees(ax,n-1, (x/2)+d, y-(h),d, h)
@@ -107,7 +107,7 @@ def deploy_trees(level):
     #line_length: Same line length from the origin to the end points
     line_length = 50
     
-	#p: 2D array composed of three lines with three coordinates. The origin is index 1 with the two endpoints being mirrored
+    #p: 2D array composed of three lines with three coordinates. The origin is index 1 with the two endpoints being mirrored
     p = np.array([[-line_length, -line_length],[0, 0], [line_length, -line_length]]) 
     px = p[:,0]
     py = p[:,1]
@@ -129,9 +129,9 @@ def draw_lotus(ax,n,center,radius,w):
         x,y = circle(center,radius)
         ax.plot(x,y,color='k')
         
-		#Recursively calls five circles that are plotted in these positions: Center, right, left, up, down
-		#For x circles (left,right): Plots the x coordinate that +- to the radius/3
-		#For y circles (up,down): Similar to x circles except it is done with the y coordinates
+	#Recursively calls five circles that are plotted in these positions: Center, right, left, up, down
+	#For x circles (left,right): Plots the x coordinate that +- to the radius/3
+	#For y circles (up,down): Similar to x circles except it is done with the y coordinates
         draw_lotus(ax,n-1, center,radius*w, w)                                #Center
         draw_lotus(ax,n-1, [center[0]+2*(radius/3), center[1]],radius*w, w)   #Right
         draw_lotus(ax,n-1, [center[0]-2*(radius/3), center[1]],radius*w, w)   #Left
