@@ -1,10 +1,10 @@
 """
-Course: CS 2302
+Course: CS 2302 [MW 1:30-2:50] 
 Author: Kimberly Morales
 Assignment: Lab 1
 Instructor: Olac Fuentes
 TA(s): Anindita Nath , Maliheh Zargaran 
-Date: 2/8/2018
+Date: 2/8/2019
 Date of last modification: 2/8/2019
 
 Purpose of program: 
