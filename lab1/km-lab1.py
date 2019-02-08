@@ -117,7 +117,7 @@ def deploy_trees(level):
     draw_trees(ax,level,px,py,line_length,50)
 
     ax.set_aspect('auto')
-    ax.axis('on')
+    ax.axis('off')
     plt.show()
     fig.savefig('trees' + str(level) + '.png')
 
