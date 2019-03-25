@@ -224,6 +224,8 @@ def full_leaves(T):
 	if T.isLeaf:
 		if len(T.item) == T.max_items:
 			return 1
+		else:
+			return 0
 	
 	#Traverse through each node and add one to the count
 	else:
