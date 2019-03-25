@@ -193,8 +193,7 @@ def num_nodes(T,d):
 #6. Print all the items in the tree at a given depth d.
 def print_at_d(T,d):
 	if d > height(T) or d < 0:
-		print ("ERROR: Out of depth")
-		return 
+		return ("ERROR: Out of depth")
 
 	#Print current item in tree and do not add new line
 	if d == 0:
