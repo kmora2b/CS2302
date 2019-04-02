@@ -68,7 +68,7 @@ def h(s,n):
 	r = 0
 	for c in s:
 		#print(c)
-		r = (r*n + ord(c))% n
+		r = (r + ord(c))% n
 	return r
 
 def loadfactor(H):
