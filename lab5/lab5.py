@@ -30,9 +30,9 @@ class HashTableC(object):
 	# Builds a hash table of size 'size'
 	# Item is a list of (initially empty) lists
 	# Constructor
-	def __init__(self, size,num_items = 0):  
+	def __init__(self, size,num_items = 0):	 
 		self.item = []
-		self.num_items = 0	#num_items: Counts new item so to not recalculate load factor
+		self.num_items = num_items	#num_items: Counts new item so to not recalculate load factor
 		
 		for i in range(size):
 			self.item.append([])
@@ -40,26 +40,28 @@ class HashTableC(object):
 #resize_h: Resizes the table if the loadfactor is 1 or over
 #Increases table by making it twice as big plus 1
 def resize_h(H):
-	for i in range((2 * len(H.item)) + 1):
-		H.item.append([])
-		
-	return H
+	H2 = HashTableC(2*len(H.item)+1)
+	
+	#Traverse through list and add to new list
+	for i in range(len(H.item)):
+		for j in range(len(H.item[i])):
+			InsertC(H2,((H.item[i])[j])[0], ((H.item[i])[j])[1]) #Insert items from old list to new list with new hash key
+	
+	return H2 
 	
 def InsertC(H,k,l):
 	# Inserts k in appropriate bucket (list) 
 	# Does nothing if k is already in the table
-	H.num_items +=1
-	if H.num_items / len(H.item) > 1.0:
-		H = resize_h(H)
 	b = h(k,len(H.item))
 	H.item[b].append([k,l]) 
+	H.num_items +=1
 
 def FindC(H,k):
 	# Returns bucket (b) and index (i) 
 	# If k is not in table, i == -1
-	
 	b = h(k,len(H.item))
 	for i in range(len(H.item[b])):
+
 		if H.item[b][i][0] == k:
 			return b, i, H.item[b][i][1]
 	return b, -1, -1
@@ -67,8 +69,7 @@ def FindC(H,k):
 def h(s,n):
 	r = 0
 	for c in s:
-		#print(c)
-		r = (r + ord(c))% n
+		r = (r*255	+ ord(c))% (n)
 	return r
 
 def loadfactor(H):
@@ -86,6 +87,7 @@ def per_emp_l(H):
 		if H.item[i] == []:
 			count += 1
 	#Return num of empty lists over table size times 100 to get percentage
+
 	return (count / len(H.item)) * 100
 	
 
@@ -100,15 +102,16 @@ def std_dev(H):
 	return statistics.stdev(a)
 
 def debug_h(A, w):
-	orig_size = 11
+	orig_size = 60001
 	H = HashTableC(orig_size)
-
+	
 	print("Building hash table with chaining \n")
 
 	for i in range(len(A)):
 		InsertC(H,A[i][0], A[i][1])
 		#print(H.item)
-	
+	while H.num_items / len(H.item) >=1:
+		H=resize_h(H)   
 	print("Hash table stats: \n" 
 	+ "Initial table size: " + str(orig_size) + "\n"
 	+ "Final table size: " + str(len(H.item)) + "\n" 
@@ -120,9 +123,12 @@ def debug_h(A, w):
 	#Processes words.txt to run many similarities
 	start = timeit.default_timer()
 	for i in range(len(w)):
+		
 		e0 = FindC(H, w[i][0])[2]
 		e1 = FindC(H, w[i][1])[2]
 		
+		#print(FindC(H, w[i][0]))
+		#print(FindC(H, w[i][1]))
 		if e0 == -1 or e1 == -1:
 			print("No word found")
 		
@@ -270,7 +276,8 @@ fng = "glove.6B.50d.txt"
 fnt = "words.txt"
 print ("Reading " + fng + "...\n")
 l = file_reader(fng,'g')
-
+#l = [['b',[1]],['a',[2]],['c',[3]],['d',[4]],['e',[5]],['f',[6]],['g',[7]],['h',[8]],['i',[9]],['j',[10]], ['k',[11]], ['l',[12]]]
+#l = l[:100]
 try:
 	print("Choose table implementation: \n" 
 	+ "1. Binary Search Tree\n"
@@ -279,7 +286,7 @@ try:
 
 	print ("Reading " + fnt + "...\n")
 	w = file_reader(fnt,'t')
-
+	#w	= [['e','a']]
 	#Binary Search Tree
 	if choice == 1:
 		#Sorts 2d based on alpha order so that it can be put into bst
