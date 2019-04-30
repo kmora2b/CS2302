@@ -8,7 +8,9 @@ Date: 4/28/2019
 Date of last modification: 4/28/2019
 
 Purpose of program: 
-
+To generate a path from the bottom right to the top left cell as a maze solution.
+This requires the use for the shortest paths algorithms: breadth first search and depth first search.
+To implement this is by drawing a graph and using it to draw a path and know how to use an adjacency list.
 
 
 """
